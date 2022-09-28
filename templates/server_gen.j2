@@ -1,0 +1,5 @@
+WedServer generated is info<br>
+Server CPU :{{ ansible_product_name }}<br>
+Server RAM :{{ ansible_memtotal_mb }}<br>
+HHD :{{ ansible_mounts|json_query('[?mount == `/`].size_available') }}<br>
+IP Address of this server is:{{ ansible_default_ipv4 ['address'] }}

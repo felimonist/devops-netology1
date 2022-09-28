@@ -1,0 +1,17 @@
+---
+# tasks file for test_netology7
+- name: install apache
+  apt: name=apache2 state=latest
+- name: start server
+  service: name=apache2 state=started enable=yes
+
+- name: generated index.html
+  template:
+    src=index.j2
+    dest={{ dest }}/index.html
+    mode=0555
+   notify:
+     - restart apache
+- name: Check
+  uri:
+    url: 

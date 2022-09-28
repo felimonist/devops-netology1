@@ -1,0 +1,29 @@
+---
+- name: Allow all access to tcp port 80
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+
+- name: install apache
+  apt: 
+    name=apache2 
+    state=latest
+- name: start server
+  service: name=apache2 state=started enabled=yes
+
+- name: generated index.html
+  template:
+    src=server_gen.j2
+    dest={{ dest }}/index.html
+    mode=0755
+  notify:
+    - restart apache
+   
+- name: Check
+  uri:
+    url: http://127.0.0.1
+  register: _result
+  until: _result.status == 200
+- debug:
+    var: _result.status == 200

@@ -1,0 +1,4 @@
+---
+# handlers file for test_netology7
+- name: restart apache
+  service: name=apache2 state=restarted
